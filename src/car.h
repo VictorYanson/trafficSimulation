@@ -16,6 +16,7 @@ private:
     float angle;
     Color carColor;
     float carRadius;
-    int x;
-    int y;
+    float x;
+    float y;
+    float rotation;
 };
