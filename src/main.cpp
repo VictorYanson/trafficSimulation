@@ -1,9 +1,10 @@
 #include <raylib.h>
 #include "ball.h"
+#include "road.h"
 
 int main() 
 {
-    const Color darkGreen = {20, 160, 133, 255};
+    const Color darkGreen = {20, 68, 125, 25};
     
     constexpr double displayRatio = 0.75;
     constexpr int baseDisplayWidth = 800;
@@ -14,6 +15,7 @@ int main()
     constexpr int screenHeight = static_cast<int>(baseDisplayWidth * displayScale * displayRatio);
     
     Ball ball;
+    Road road;
     
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
     SetTargetFPS(60);
@@ -24,6 +26,7 @@ int main()
         
         BeginDrawing();
             ClearBackground(darkGreen);
+            road.Draw();
             ball.Draw();
         EndDrawing();
     }
