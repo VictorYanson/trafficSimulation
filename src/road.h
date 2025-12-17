@@ -5,8 +5,8 @@ class Road
 public:
     Road();
     void Draw() const;
+    float radius;
 
 private:
-    float radius;
     float width;
 };

@@ -1,4 +1,3 @@
-//ball.cpp
 #include "ball.h"
 #include <raylib.h>
 

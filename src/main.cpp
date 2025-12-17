@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include "ball.h"
 #include "road.h"
+#include "car.h"
 
 int main() 
 {
@@ -16,6 +17,7 @@ int main()
     
     Ball ball;
     Road road;
+    Car car;
     
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
     SetTargetFPS(60);
@@ -23,10 +25,12 @@ int main()
     while (!WindowShouldClose())
     {
         ball.Update();
+        car.Update(road);
         
         BeginDrawing();
             ClearBackground(darkGreen);
             road.Draw();
+            car.Draw();
             ball.Draw();
         EndDrawing();
     }
