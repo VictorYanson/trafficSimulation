@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include <vector>
 #include "road.h"
 #include "car.h"
 
@@ -15,22 +16,30 @@ int main()
     constexpr int screenHeight = static_cast<int>(baseDisplayWidth * displayScale * displayRatio);
     
     Road road;
-    Car car1(0.02f, 0.0f);
-    Car car2(0.02f, 1.0f);
-    
+
+    std::vector<Car> Cars;
+    Cars.push_back(Car(0.02f, 0.0f, GREEN));
+    Cars.push_back(Car(0.02f, 1.57f, BLUE));
+    Cars.push_back(Car(0.02f, 3.14f, RED));
+
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
     SetTargetFPS(60);
     
     while (!WindowShouldClose())
     {
-        car1.Update(road);
-        car2.Update(road);
+        for (Car& car : Cars) 
+        {
+            car.Update(road);
+        }
         
         BeginDrawing();
             ClearBackground(darkGreen);
             road.Draw();
-            car1.Draw();
-            car2.Draw();
+            
+            for (const Car& car : Cars) 
+            {
+                car.Draw();
+            }
         EndDrawing();
     }
     

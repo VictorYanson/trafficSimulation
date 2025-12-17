@@ -2,9 +2,10 @@
 #include <cmath>
 #include <raylib.h>
 
-Car::Car(float startingSpeed, float startingAngle) 
+Car::Car(float startingSpeed, float startingAngle, Color color) 
     : speed(startingSpeed)
     , angle(startingAngle)
+    , carColor(color)
     , carRadius(25.0f)
     , x(0)
     , y(0)
@@ -25,5 +26,5 @@ void Car::Update(const Road& road)
 
 void Car::Draw() const
 {
-    DrawCircle(x, y, carRadius, RED);
+    DrawCircle(x, y, carRadius, carColor);
 }
