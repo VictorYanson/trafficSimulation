@@ -15,19 +15,22 @@ int main()
     constexpr int screenHeight = static_cast<int>(baseDisplayWidth * displayScale * displayRatio);
     
     Road road;
-    Car car;
+    Car car1(0.02f, 0.0f);
+    Car car2(0.02f, 1.0f);
     
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
     SetTargetFPS(60);
     
     while (!WindowShouldClose())
     {
-        car.Update(road);
+        car1.Update(road);
+        car2.Update(road);
         
         BeginDrawing();
             ClearBackground(darkGreen);
             road.Draw();
-            car.Draw();
+            car1.Draw();
+            car2.Draw();
         EndDrawing();
     }
     

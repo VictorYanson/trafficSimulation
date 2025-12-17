@@ -4,14 +4,14 @@
 class Car
 {
 public:
-    Car();
+    Car(float startingSpeed, float startingAngle);
     void Update(const Road& road);
     void Draw() const;
 
 private:
     float speed;
-    float carRadius;
     float angle;
+    float carRadius;
     int x;
     int y;
 };

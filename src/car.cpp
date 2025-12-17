@@ -2,10 +2,10 @@
 #include <cmath>
 #include <raylib.h>
 
-Car::Car() 
-    : speed(0.05f)
+Car::Car(float startingSpeed, float startingAngle) 
+    : speed(startingSpeed)
+    , angle(startingAngle)
     , carRadius(25.0f)
-    , angle(0.0f)
     , x(0)
     , y(0)
 {
