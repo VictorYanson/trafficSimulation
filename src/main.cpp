@@ -1,5 +1,4 @@
 #include <raylib.h>
-#include "ball.h"
 #include "road.h"
 #include "car.h"
 
@@ -15,7 +14,6 @@ int main()
     constexpr int screenWidth = static_cast<int>(baseDisplayWidth * displayScale);
     constexpr int screenHeight = static_cast<int>(baseDisplayWidth * displayScale * displayRatio);
     
-    Ball ball;
     Road road;
     Car car;
     
@@ -24,14 +22,12 @@ int main()
     
     while (!WindowShouldClose())
     {
-        ball.Update();
         car.Update(road);
         
         BeginDrawing();
             ClearBackground(darkGreen);
             road.Draw();
             car.Draw();
-            ball.Draw();
         EndDrawing();
     }
     
