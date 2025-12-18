@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <vector>
+#include <iostream>
 #include "road.h"
 #include "car.h"
 
@@ -18,17 +19,32 @@ int main()
     Road road;
 
     std::vector<Car> Cars;
-    Cars.push_back(Car(0.02f, 0.0f, GREEN));
-    Cars.push_back(Car(0.025f, 3.14f, RED));
+    Cars.push_back(Car(0.025f, 0.0f, GREEN));
+    Cars.push_back(Car(0.02f, 3.14f, RED));
+    // Cars.push_back(Car(0.02f, 1.57f, BROWN));
 
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
     SetTargetFPS(60);
     
     while (!WindowShouldClose())
     {
-        for (Car& car : Cars) 
-        {
-            car.Update(road);
+        for (size_t i = 0; i < Cars.size(); i++) {
+            Cars[i].Update(road);
+
+            // const Car& leader = Cars[(i + 1) % Cars.size()];
+            // const int arcLength = Cars[i].CalculateGap(leader, road);
+
+            // std::cout << "Gap to leader: " << arcLength << std::endl;
+        }
+
+        if (!Cars.empty()) {
+            size_t i = 0;
+            const Car& currentCar = Cars[i];
+            const Car& leader = Cars[(i + 1) % Cars.size()];
+            
+            float arcLength = currentCar.CalculateGap(leader, road);
+            
+            std::cout << "Gap to leader: " << arcLength << std::endl;
         }
         
         BeginDrawing();

@@ -23,5 +23,5 @@ void Road::Draw() const
     float lineOuter = radius + 2.5f;
 
     // road lane line
-    DrawRing(center, lineInner, lineOuter, 0, 360, 0, {255, 255, 255, 100});
+    DrawRing(center, lineInner, lineOuter, 0, 360, 0, {189, 189, 189, 255});
 }

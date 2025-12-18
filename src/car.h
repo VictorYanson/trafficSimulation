@@ -10,10 +10,11 @@ public:
     Car(float startingSpeed, float startingAngle, Color color);
     void Update(const Road& road);
     void Draw() const;
+    float CalculateGap(const Car& leader, const Road& road) const;
+    float angle;
 
 private:
     float speed;
-    float angle;
     Color carColor;
     float carRadius;
     float x;

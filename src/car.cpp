@@ -3,8 +3,8 @@
 #include <raylib.h>
 
 Car::Car(float startingSpeed, float startingAngle, Color color) 
-    : speed(startingSpeed)
-    , angle(startingAngle)
+    : angle(startingAngle)
+    , speed(startingSpeed)
     , carColor(color)
     , carRadius(25.0f)
     , x(0.0f)
@@ -23,6 +23,18 @@ void Car::Update(const Road& road)
 
     x = centerX + roadRadius * std::cos(angle);
     y = centerY + roadRadius * std::sin(angle);
+}
+
+float Car::CalculateGap(const Car& leader, const Road& road) const {
+    float angleDiff = leader.angle - angle;
+
+    float twoPi = 2.0f * PI;
+    float positiveDiff = std::fmod(std::fmod(angleDiff, twoPi) + twoPi, twoPi);
+
+    int roadRadius = (float)road.radius;
+    float arcLength = roadRadius * positiveDiff;
+
+    return arcLength;
 }
 
 void Car::Draw() const
