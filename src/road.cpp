@@ -16,5 +16,12 @@ void Road::Draw() const
     float inner = radius - carPath;
     float outer = radius + carPath;
 
+    // main road surface
     DrawRing(center, inner, outer, 0, 360, 0, GRAY);
+
+    float lineInner = radius - 2.5f;
+    float lineOuter = radius + 2.5f;
+
+    // road lane line
+    DrawRing(center, lineInner, lineOuter, 0, 360, 0, {255, 255, 255, 100});
 }
