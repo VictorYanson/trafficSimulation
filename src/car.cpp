@@ -41,7 +41,7 @@ float Car::CalculateGap(const Car& leader) const
 
     float centerToCenterArc = roadRadius * positiveDiff;
     
-    float bumperToBumper = centerToCenterArc - 200.0f; 
+    float bumperToBumper = centerToCenterArc - 150.0f; 
 
     return (bumperToBumper < 1.0f) ? 1.0f : bumperToBumper;
 }
@@ -74,8 +74,8 @@ float Car::CalculateIDM(const Car& leader) const
 
 void Car::Draw() const
 {
-    float width = 50.0f;
-    float height = 100.0f;
+    float width = 30.0f;
+    float height = 75.0f;
 
     Rectangle rec = { x, y, width, height };
     Vector2 origin = { width / 2.0f, height / 2.0f };

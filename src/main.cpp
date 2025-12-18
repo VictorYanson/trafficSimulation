@@ -19,11 +19,13 @@ int main()
     Road road;
 
     std::vector<Car> Cars;
-    Cars.push_back(Car(0.025f, 0.025f, 0.0f, GREEN, road));
-    Cars.push_back(Car(0.02f, 0.03f, 3.14f, RED, road));
+    Cars.push_back(Car(0.025f, 0.04f, 0.0f, GREEN, road));
+    Cars.push_back(Car(0.02f, 0.03f, 1.57f, RED, road));
+    Cars.push_back(Car(0.02f, 0.04f, 3.14f, BLUE, road));
+    Cars.push_back(Car(0.02f, 0.04f, 4.28f, YELLOW, road));
 
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
-    SetTargetFPS(120);
+    SetTargetFPS(60);
     
     // main loop
     while (!WindowShouldClose())
