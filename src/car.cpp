@@ -2,21 +2,28 @@
 #include <cmath>
 #include <raylib.h>
 
-Car::Car(float startingSpeed, float startingAngle, Color color) 
+Car::Car(float startingSpeed, float desiredSpeed, float startingAngle, Color color, const Road& road) 
     : angle(startingAngle)
     , speed(startingSpeed)
+    , desiredSpeed(desiredSpeed)
     , carColor(color)
     , carRadius(25.0f)
     , x(0.0f)
     , y(0.0f)
     , rotation(0.0f)
+    , roadRadius((float)road.radius)
 {
 }
 
-void Car::Update(const Road& road) 
-{
+
+void Car::UpdatePosition(const Car& leader) 
+{   
+    float acceleration = CalculateIDM(leader);
+
+    speed += acceleration;
+    if (speed < 0) speed = 0;
+
     angle += speed;
-    int roadRadius = (float)road.radius;
 
     float centerX = (float)GetScreenWidth() / 2.0f;
     float centerY = (float)GetScreenHeight() / 2.0f;
@@ -25,16 +32,44 @@ void Car::Update(const Road& road)
     y = centerY + roadRadius * std::sin(angle);
 }
 
-float Car::CalculateGap(const Car& leader, const Road& road) const {
+float Car::CalculateGap(const Car& leader) const 
+{
     float angleDiff = leader.angle - angle;
 
     float twoPi = 2.0f * PI;
     float positiveDiff = std::fmod(std::fmod(angleDiff, twoPi) + twoPi, twoPi);
 
-    int roadRadius = (float)road.radius;
-    float arcLength = roadRadius * positiveDiff;
+    float centerToCenterArc = roadRadius * positiveDiff;
+    
+    float bumperToBumper = centerToCenterArc - 200.0f; 
 
-    return arcLength;
+    return (bumperToBumper < 1.0f) ? 1.0f : bumperToBumper;
+}
+
+float Car::CalculateIDM(const Car& leader) const
+{
+    float speedState = speed * (speed - leader.speed);
+
+    float desiredBraking = 1.0f;
+    float desiredAccelerating = 1.0f;
+    float desiredBehavior = 2 * sqrt(desiredBraking * desiredAccelerating);
+
+    float timeBuffer = 2.0f;
+    float minGap = 3.0f;
+
+    float desiredGap = minGap + speed * timeBuffer + speedState / desiredBehavior;
+    if (desiredGap < minGap) desiredGap = minGap;
+
+    float currentGap = CalculateGap(leader);
+
+    float interactionTerm = std::pow(desiredGap / currentGap, 2.0f);
+    float speedTerm = std::pow(speed / desiredSpeed, 4.0f);
+
+    float maxAcceleration = 0.01f;
+
+    float newAcceleration = maxAcceleration * (1.0f - speedTerm - interactionTerm); 
+
+    return newAcceleration / roadRadius;
 }
 
 void Car::Draw() const

@@ -7,17 +7,20 @@
 class Car
 {
 public:
-    Car(float startingSpeed, float startingAngle, Color color);
-    void Update(const Road& road);
+    Car(float startingSpeed, float desiredSpeed, float startingAngle, Color color, const Road& road);
+    void UpdatePosition(const Car& leader);
     void Draw() const;
-    float CalculateGap(const Car& leader, const Road& road) const;
+    float CalculateGap(const Car& leader) const;
+    float CalculateIDM(const Car& leader) const;
     float angle;
+    float speed;
+    float desiredSpeed;
 
 private:
-    float speed;
     Color carColor;
     float carRadius;
     float x;
     float y;
     float rotation;
+    float roadRadius;
 };

@@ -19,32 +19,19 @@ int main()
     Road road;
 
     std::vector<Car> Cars;
-    Cars.push_back(Car(0.025f, 0.0f, GREEN));
-    Cars.push_back(Car(0.02f, 3.14f, RED));
-    // Cars.push_back(Car(0.02f, 1.57f, BROWN));
+    Cars.push_back(Car(0.025f, 0.025f, 0.0f, GREEN, road));
+    Cars.push_back(Car(0.02f, 0.03f, 3.14f, RED, road));
 
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
     
+    // main loop
     while (!WindowShouldClose())
     {
         for (size_t i = 0; i < Cars.size(); i++) {
-            Cars[i].Update(road);
 
-            // const Car& leader = Cars[(i + 1) % Cars.size()];
-            // const int arcLength = Cars[i].CalculateGap(leader, road);
-
-            // std::cout << "Gap to leader: " << arcLength << std::endl;
-        }
-
-        if (!Cars.empty()) {
-            size_t i = 0;
-            const Car& currentCar = Cars[i];
             const Car& leader = Cars[(i + 1) % Cars.size()];
-            
-            float arcLength = currentCar.CalculateGap(leader, road);
-            
-            std::cout << "Gap to leader: " << arcLength << std::endl;
+            Cars[i].UpdatePosition(leader);
         }
         
         BeginDrawing();
