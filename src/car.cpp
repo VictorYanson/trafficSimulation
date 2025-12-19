@@ -15,7 +15,6 @@ Car::Car(float startingSpeed, float desiredSpeed, float startingAngle, Color col
 {
 }
 
-
 void Car::UpdatePosition(const Car& leader) 
 {   
     float acceleration = CalculateIDM(leader);

@@ -25,3 +25,29 @@ void Road::Draw() const
     // road lane line
     DrawRing(center, lineInner, lineOuter, 0, 360, 0, {189, 189, 189, 255});
 }
+
+std::vector<float> Road::GetLaneRadii(float laneAmount) const
+{
+    std::vector<float> lanes;
+
+    if (laneAmount > 1.0f) 
+    {
+        float laneFraction = width / laneAmount;
+        float carPath = width / 2.0f;
+        float startingBuffer = laneFraction / 2.0f;
+        float innerLine = radius - carPath;
+        float newLane = innerLine + startingBuffer;
+
+        for (float i = 0; i < laneAmount; i++)
+        {
+            lanes.push_back(newLane);
+            newLane += laneFraction;
+        }
+
+        return lanes;
+    }
+    else 
+    {
+        return { radius };
+    }
+}

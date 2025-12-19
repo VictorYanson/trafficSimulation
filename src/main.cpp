@@ -30,8 +30,8 @@ int main()
     // main loop
     while (!WindowShouldClose())
     {
-        for (size_t i = 0; i < Cars.size(); i++) {
-
+        for (size_t i = 0; i < Cars.size(); i++) 
+        {
             const Car& leader = Cars[(i + 1) % Cars.size()];
             Cars[i].UpdatePosition(leader);
         }
