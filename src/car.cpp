@@ -1,8 +1,7 @@
 #include "car.h"
 #include <cmath>
-#include <raylib.h>
 
-Car::Car(float startingSpeed, float desiredSpeed, float startingAngle, Color color, const Road& road) 
+Car::Car(float startingSpeed, float desiredSpeed, float startingAngle, Color color, const Road& road, std::vector<float> laneRadii) 
     : angle(startingAngle)
     , speed(startingSpeed)
     , desiredSpeed(desiredSpeed)
@@ -11,7 +10,8 @@ Car::Car(float startingSpeed, float desiredSpeed, float startingAngle, Color col
     , x(0.0f)
     , y(0.0f)
     , rotation(0.0f)
-    , roadRadius((float)road.radius)
+    , roadRadius(road.radius)
+    , laneRadii(laneRadii)
 {
 }
 
@@ -27,10 +27,13 @@ void Car::UpdatePosition(const Car& leader)
     float centerX = (float)GetScreenWidth() / 2.0f;
     float centerY = (float)GetScreenHeight() / 2.0f;
 
-    x = centerX + roadRadius * std::cos(angle);
-    y = centerY + roadRadius * std::sin(angle);
+    float innerLane = laneRadii[0];
+
+    x = centerX + innerLane * std::cos(angle);
+    y = centerY + innerLane * std::sin(angle);
 }
 
+// FIX: roadRadius doesn't accuratly reflect current lane radius
 float Car::CalculateGap(const Car& leader) const 
 {
     float angleDiff = leader.angle - angle;
@@ -45,6 +48,7 @@ float Car::CalculateGap(const Car& leader) const
     return (bumperToBumper < 1.0f) ? 1.0f : bumperToBumper;
 }
 
+// FIX: roadRadius doesn't accuratly reflect current lane radius
 float Car::CalculateIDM(const Car& leader) const
 {
     float speedState = speed * (speed - leader.speed);
@@ -70,6 +74,14 @@ float Car::CalculateIDM(const Car& leader) const
 
     return newAcceleration / roadRadius;
 }
+
+// bool SwitchLane(std::vector<float> laneRadii)
+// {
+//     bool isLaneSwitching = false;
+//     float framesToSwitch = 60.0f * 4.0f;
+
+    
+// }
 
 void Car::Draw() const
 {

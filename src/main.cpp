@@ -11,18 +11,19 @@ int main()
     constexpr double displayRatio = 0.75;
     constexpr int baseDisplayWidth = 800;
 
-    constexpr double displayScale = 1.4;
+    constexpr double displayScale = 1.25;
 
     constexpr int screenWidth = static_cast<int>(baseDisplayWidth * displayScale);
     constexpr int screenHeight = static_cast<int>(baseDisplayWidth * displayScale * displayRatio);
     
     Road road;
+    std::vector<float> lanes = road.GetLaneRadii(2.0f);
 
     std::vector<Car> Cars;
-    Cars.push_back(Car(0.025f, 0.04f, 0.0f, GREEN, road));
-    Cars.push_back(Car(0.02f, 0.03f, 1.57f, RED, road));
-    Cars.push_back(Car(0.02f, 0.04f, 3.14f, BLUE, road));
-    Cars.push_back(Car(0.02f, 0.04f, 4.28f, YELLOW, road));
+    Cars.push_back(Car(0.025f, 0.04f, 0.0f, GREEN, road, lanes));
+    Cars.push_back(Car(0.02f, 0.03f, 1.57f, RED, road, lanes));
+    Cars.push_back(Car(0.02f, 0.04f, 3.14f, BLUE, road, lanes));
+    Cars.push_back(Car(0.02f, 0.04f, 4.28f, YELLOW, road, lanes));
 
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
     SetTargetFPS(60);
