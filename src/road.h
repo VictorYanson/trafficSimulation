@@ -7,7 +7,7 @@ class Road
 public:
     Road();
     void Draw() const;
-    std::vector<float> GetLaneRadii(float laneAmount) const;
+    std::vector<float> GetLaneRadii(int laneAmountInt) const;
     float radius;
 
 private:

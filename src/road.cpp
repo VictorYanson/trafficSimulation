@@ -26,8 +26,9 @@ void Road::Draw() const
     DrawRing(center, lineInner, lineOuter, 0, 360, 0, {189, 189, 189, 255});
 }
 
-std::vector<float> Road::GetLaneRadii(float laneAmount) const
+std::vector<float> Road::GetLaneRadii(int laneAmountInt) const
 {
+    float laneAmount = float(laneAmountInt);
     std::vector<float> lanes;
 
     if (laneAmount > 1.0f) 

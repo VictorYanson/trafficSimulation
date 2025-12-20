@@ -17,7 +17,7 @@ int main()
     constexpr int screenHeight = static_cast<int>(baseDisplayWidth * displayScale * displayRatio);
     
     Road road;
-    std::vector<float> lanes = road.GetLaneRadii(2.0f);
+    std::vector<float> lanes = road.GetLaneRadii(2);
 
     std::vector<Car> Cars;
     Cars.push_back(Car(0.025f, 0.04f, 0.0f, GREEN, road, lanes));
