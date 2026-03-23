@@ -5,6 +5,7 @@ Car::Car(float startingSpeed, float desiredSpeed, float startingAngle, Color col
     : angle(startingAngle)
     , speed(startingSpeed)
     , desiredSpeed(desiredSpeed)
+    , acceleration(0.0f)
     , carColor(color)
     , carRadius(25.0f)
     , x(0.0f)
@@ -12,12 +13,13 @@ Car::Car(float startingSpeed, float desiredSpeed, float startingAngle, Color col
     , rotation(0.0f)
     , roadRadius(road.radius)
     , laneRadii(laneRadii)
+    , currentLane(laneRadii[0])
 {
 }
 
 void Car::UpdatePosition(const Car& leader) 
 {   
-    float acceleration = CalculateIDM(leader);
+    acceleration = CalculateIDM(leader);
 
     speed += acceleration;
     if (speed < 0) speed = 0;
@@ -27,10 +29,11 @@ void Car::UpdatePosition(const Car& leader)
     float centerX = (float)GetScreenWidth() / 2.0f;
     float centerY = (float)GetScreenHeight() / 2.0f;
 
-    float innerLane = laneRadii[0];
+    // lane switch
+    if (currentLane < laneRadii[1]) currentLane += 0.5f;
 
-    x = centerX + innerLane * std::cos(angle);
-    y = centerY + innerLane * std::sin(angle);
+    x = centerX + currentLane * std::cos(angle);
+    y = centerY + currentLane * std::sin(angle);
 }
 
 // FIX: roadRadius doesn't accuratly reflect current lane radius
@@ -75,13 +78,10 @@ float Car::CalculateIDM(const Car& leader) const
     return newAcceleration / roadRadius;
 }
 
-// bool SwitchLane(std::vector<float> laneRadii)
-// {
-//     bool isLaneSwitching = false;
-//     float framesToSwitch = 60.0f * 4.0f;
+bool SwitchLane(std::vector<float> laneRadii, const Car& leader, const Car& )
+{
 
-    
-// }
+}
 
 void Car::Draw() const
 {

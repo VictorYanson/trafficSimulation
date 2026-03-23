@@ -6,7 +6,7 @@
 
 int main() 
 {
-    const Color darkGreen = {20, 160, 133, 255};
+    const Color darkGreen = {47, 138, 63, 255};
     
     constexpr double displayRatio = 0.75;
     constexpr int baseDisplayWidth = 800;
@@ -22,7 +22,7 @@ int main()
     std::vector<Car> Cars;
     Cars.push_back(Car(0.025f, 0.04f, 0.0f, GREEN, road, lanes));
     Cars.push_back(Car(0.02f, 0.03f, 1.57f, RED, road, lanes));
-    Cars.push_back(Car(0.02f, 0.04f, 3.14f, BLUE, road, lanes));
+    Cars.push_back(Car(0.015f, 0.04f, 3.14f, BLUE, road, lanes));
     Cars.push_back(Car(0.02f, 0.04f, 4.28f, YELLOW, road, lanes));
 
     InitWindow(screenWidth, screenHeight, "Traffic Simulation");
